@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="Mail_24.Views.AdresyView"
+             x:Name="testy"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Mail_24.ViewModels"
+             mc:Ignorable="d">
+	<UserControl.DataContext>
+		<vm:Adres/>
+		<!--odpala konstruktor klasy dla pobrania danych-->
+		<!--korzysta z enumeracji w modelu-->
+	</UserControl.DataContext>
+	<UserControl.Resources>
+        <Style x:Key="checkAllStyle" TargetType="{x:Type CheckBox}">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Command"
+                  Value="{Binding CheckAll}" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Command"
+                  Value="{Binding UncheckAll}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="#F2F2F2" FocusManager.FocusedElement="{Binding ElementName=tbFiltrowania}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="130"/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="130"/>
+		</Grid.ColumnDefinitions>
+		<GroupBox Header="Dodane adresy"
+				  Grid.Column="0" Grid.ColumnSpan="3"
+				  Grid.Row="0" Grid.RowSpan="5"/>
+		<ListBox x:Name="lbListaAdresow" Margin="5,5,5,5" ItemsSource="{Binding FiltrowanaKolekcja.View}"
+				 Grid.Column="0" Grid.ColumnSpan="3"
+				 Grid.Row="1" Grid.RowSpan="5">
+			<!--szablon rekordu-->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="cbCheckMe" IsChecked="{Binding Path=ZaznaczenieEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"
+                                  >
+                        </CheckBox>
+						<TextBlock FontSize="10" Margin="0,0,10,0"
+								   Foreground="{Binding Path=AktywnyEmail,
+								   Converter={StaticResource aktywnyKolor}}">
+							<Run Text="{Binding Path=AktywnyEmail, Mode=OneWay,
+								 Converter={StaticResource aktywnyToString}}" >
+							</Run>
+						</TextBlock>
+						<TextBlock Text="{Binding Path=AdresMailowy, Mode=OneWay}" FontSize="10"/>
+						<!--ciągnie ztyl z zasobów, widoczny gdy włączony-->
+						<!--boolToVisibility-korzysta z wbudowanego konwertera BooleanToVisibilityConverter-->
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Control.Margin" Value="3" />
+					<Setter Property="Control.BorderBrush" Value="LightGray" />
+					<Setter Property="Control.BorderThickness" Value="1" />
+					<!--wyzwalacz zmiany stylu gdy mysz najedzie na rekord-->
+				</Style>
+			</ListBox.ItemContainerStyle>
+		</ListBox>
+        <Button Grid.Row="2"
+				Grid.Column="3"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Dodaj nowy adres do listy"
+                Command="{Binding DodajAdres}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="WindowHeight" Value="160"/>
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="WindowWidth" Value="300"/>
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="Caption" Value="Dodawanie adresu"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Text="Dodaj adres" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="1"
+				Grid.Column="3"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Dodaj adresy z pliku TXT"
+				Command="{Binding Path=OtworzPlikAdresy}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="fileFilter" Value="Pliki tekstowe (*.txt)|*.txt|Wszystkie pliki (*.*)|*.*"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Text="Dodaj z pliku" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="0"
+				Grid.Column="3"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Sortuj adresy"
+                Command="{Binding Path=SortujAdresy}"
+                IsEnabled="{Binding Path=ListaAdresow.Count}">
+			<TextBlock Text="Sortuj a-z" TextWrapping="Wrap" TextAlignment="Center"/>
+		</Button>
+        <Button Grid.Row="3"
+				Grid.Column="3"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Eksportuj adresy do pliku TXT"
+                Command="{Binding Path=EksportujDoPliku}"
+                IsEnabled="{Binding Path=ListaAdresow.Count}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="fileFilter" Value="Pliki tekstowe (*.txt)|*.txt|Wszystkie pliki (*.*)|*.*"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Text="Eksportuj" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4"
+				Grid.Column="3"
+				ToolTip="Usuń zaznaczone adresy"
+				Command="{Binding Path=UsunAdresy}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#D2D5DE"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Height" Value="45"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLaunchEnabled}" Value="True">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="CheckAllIsChecked" Value="False"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <!--CheckAllIsChecked po wciśnięciu odznacza "zaznacz wszystko-->
+            <TextBlock Text="Usuń zaznaczone" TextWrapping="Wrap" TextAlignment="Center"/>
+		</Button>
+		<Button Grid.Row="5"
+				Grid.Column="3"
+				ToolTip="Aktywacja/dezaktywacja zaznaczonych adresów"
+				Command="{Binding Path=ZmienStatus}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#D2D5DE"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Height" Value="45"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLaunchEnabled}" Value="True">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:ChangePropertyAction TargetObject="{Binding}" PropertyName="CheckAllIsChecked" Value="False"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <!--CheckAllIsChecked po wciśnięciu odznacza "zaznacz wszystko-->
+			<TextBlock Text="Zmien status" TextWrapping="Wrap" TextAlignment="Center"/>
+		</Button>
+        <CheckBox VerticalAlignment="Bottom"
+                  x:Name="cbCheckBoxAll"
+				  Grid.Column="0"
+				  Grid.Row="0"
+				  Margin="5"
+                  IsChecked="{Binding CheckAllIsChecked}"
+                  Style="{StaticResource checkAllStyle}"
+                  ToolTip="Zaznacz wszystkie wyświetlone adresy">
+            <TextBlock FlowDirection="RightToLeft" Text="Zaznacz wszystko" />
+		</CheckBox>
+		<TextBox x:Name="tbFiltrowania"
+            Grid.Column="1" Grid.ColumnSpan="2"
+				   Grid.Row="0"
+				   Text="{Binding FiltrSzukania, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+				   VerticalAlignment="Bottom"
+				   Background="#ffffff"
+				   Margin="5"
+				 Style="{StaticResource tbStyle}">
+		</TextBox>
+	</Grid>
+</UserControl>

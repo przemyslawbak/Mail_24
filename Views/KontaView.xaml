@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="Mail_24.Views.KontaView"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Mail_24.ViewModels"
+             xmlns:model="clr-namespace:Mail_24.Models"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+		mc:Ignorable="d">
+    <UserControl.DataContext>
+        <vm:Konta/>
+        <!--odpala konstruktor klasy dla pobrania danych-->
+        <!--korzysta z enumeracji w modelu-->
+    </UserControl.DataContext>
+    <Grid Background="#F2F2F2"
+          FocusManager.FocusedElement="{Binding ElementName=tbAdresSerwera}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="130"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="lbListaKont" Margin="5,25,5,5" ItemsSource="{Binding Path=ListaKont}"
+				 Grid.Column="3"
+				 Grid.Row="2" Grid.RowSpan="4">
+            <!--szablon rekordu-->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <!--Foreground binding pobiera bool dla realizacji, Foreground Resource nadaje kolor-->
+                        <!--TextDecorations pobiera bool, i skreśla na podstawie bool, jeśli wykonany-->
+                        <TextBlock Text="{Binding Path=AdresEmail, Mode=OneWay}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <GroupBox Header="Dodaj konto"
+				  Grid.Column="0" Grid.ColumnSpan="3"
+				  Grid.Row="0" Grid.RowSpan="6"/>
+        <GroupBox Header="Aktywne konta"
+				  Grid.Column="3"
+				  Grid.Row="2" Grid.RowSpan="4"/>
+        <Label Grid.Row="0"
+			   Grid.Column="3"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Center"/>
+        <Label Grid.Row="0"
+			   Grid.Column="1"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Center"/>
+        <Label Grid.Row="0"
+			   Grid.Column="1"  Grid.ColumnSpan="2"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Center">
+            <TextBlock Text="Serwer poczty wychodzącej SMTP" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Label>
+        <Label Grid.Row="1"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right">
+            <TextBlock Text="Adres serwera"/>
+        </Label>
+        <Label Grid.Row="2"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right">
+            <TextBlock Text="Port"/>
+        </Label>
+        <Label Grid.Row="4"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right"/>
+        <Label Grid.Row="5"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right"/>
+        <Label Grid.Row="3"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right">
+            <TextBlock Text="Imię i nazwisko"/>
+        </Label>
+        <Label Grid.Row="4"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right">
+            <TextBlock Text="Adres e-mail"/>
+        </Label>
+        <Label Grid.Row="5"
+			   Grid.Column="0"
+			   Style="{StaticResource labelStyle}"
+			   HorizontalAlignment="Right">
+            <TextBlock Text="Hasło"/>
+        </Label>
+        <TextBox Grid.Row="1"
+				 Grid.Column="1"  Grid.ColumnSpan="2"
+				 Style="{StaticResource tbStyle}"
+				 x:Name="tbAdresSerwera"
+                     ToolTip="Wpisz nazwę serwera SMTP, &#x0a;np. 'smtp.gmail.com'"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="Adres"
+                         Mode="TwoWay"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnNotifyDataErrors="True"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <model:TextBoxValidation ValidationType="{x:Type system:String}"
+                                                                               ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Row="2"
+				 Grid.Column="1"  Grid.ColumnSpan="2"
+				 Style="{StaticResource tbStyle}"
+				 x:Name="tbPort"
+                 ToolTip="Wpisz numer portu serwera SMTP, &#x0a;np. '587'"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="Port"
+                         Mode="TwoWay"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnNotifyDataErrors="True"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <model:TextBoxValidation ValidationType="{x:Type system:Int32}"
+                                                                               ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Row="3"
+				 Grid.Column="1"  Grid.ColumnSpan="2"
+				 Style="{StaticResource tbStyle}"
+                     ToolTip="Wpisz imię i nazwisko lub nazwę nadawcy, &#x0a;np. 'Grzegorz Brzeczyszczykiewicz'"
+				 x:Name="tbImieNazwisko"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="Imie"
+                         Mode="TwoWay"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnNotifyDataErrors="True"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <model:TextBoxValidation ValidationType="{x:Type system:String}"
+                                                                               ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Row="4"
+				 Grid.Column="1" Grid.ColumnSpan="2"
+				 Style="{StaticResource tbStyle}"
+				 x:Name="tbAdresEmail"
+                     ToolTip="Wpisz adres mailowy z któego będą wysyłane wiadomości, &#x0a;np. 'grzegorz.b@gmail.com"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="Email"
+                         Mode="TwoWay"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnNotifyDataErrors="True"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <model:TextBoxValidation ValidationType="{x:Type system:Int64}"
+                                                                               ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <!--CIEN DLA HASLA-->
+        <TextBox Grid.Row="5"
+				 Grid.Column="3" Grid.ColumnSpan="2"
+				 Style="{StaticResource tbStyle}"
+				 x:Name="tbHaslo"
+                     Text="{Binding Path=Haslo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="Collapsed">
+        </TextBox>
+        <PasswordBox model:PasswordHelper.Attach="True"
+                     model:PasswordHelper.Password="{Binding Path=Haslo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="Wpisz hasło skrzynki pocztowej"
+				 Grid.Row="5" Margin="5" Height="25"
+				 Grid.Column="1" Grid.ColumnSpan="2">
+        </PasswordBox>
+        <Button Grid.Row="0"
+				Grid.Column="3"
+				Style="{StaticResource dodajButton}"
+				ToolTip="Dodaj nowe konto"
+				Command="{Binding Path=DodajKonto}">
+            <TextBlock Text="Dodaj nowe" TextWrapping="Wrap" TextAlignment="Center"/>
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource kontaConverter}">
+                    <Binding ElementName="tbAdresSerwera" Path="Text"/>
+                    <Binding ElementName="tbPort" Path="Text"/>
+                    <Binding ElementName="tbImieNazwisko" Path="Text"/>
+                    <Binding ElementName="tbAdresEmail" Path="Text"/>
+                    <Binding ElementName="tbHaslo" Path="Text"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        <Button Grid.Row="1"
+				Grid.Column="3"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Usuń zaznaczone konto"
+				Command="{Binding Path=UsunKonto}"
+				CommandParameter="{Binding ElementName=lbListaKont, Path=SelectedIndex}">
+            <TextBlock Text="Usuń zaznaczone" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+    </Grid>
+</UserControl>

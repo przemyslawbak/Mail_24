@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Limity>
+  <PerHour>99</PerHour>
+  <PerDay>499</PerDay>
+  <HowOften>1</HowOften>
+  <RozpoczecieGodzinowe>22.07.2018 11:25:26</RozpoczecieGodzinowe>
+  <RozpoczecieDobowe>22.07.2018 11:25:26</RozpoczecieDobowe>
+  <IloscGodzinowa>1</IloscGodzinowa>
+  <IloscDobowa>1</IloscDobowa>
+</Limity>

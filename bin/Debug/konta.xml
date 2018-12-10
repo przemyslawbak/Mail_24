@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Konta>
+  <Konto>
+    <AdresSerwera>smtp.gmail.com</AdresSerwera>
+    <Port>534</Port>
+    <ImieNazwisko>Przemyslaw Bak</ImieNazwisko>
+    <AdresEmail>przeyslaw.bak.mail@gmail.com</AdresEmail>
+    <Haslo>Dupa</Haslo>
+  </Konto>
+  <Konto>
+    <AdresSerwera>smtp.gmail.com</AdresSerwera>
+    <Port>587</Port>
+    <ImieNazwisko>Grzegorz Brzeczyszczykiewicz</ImieNazwisko>
+    <AdresEmail>grzegorz.b@gmail.com</AdresEmail>
+    <Haslo>12345678</Haslo>
+  </Konto>
+  <Konto>
+    <AdresSerwera>smtp.gmail.com</AdresSerwera>
+    <Port>587</Port>
+    <ImieNazwisko>Alicja Zalupska</ImieNazwisko>
+    <AdresEmail>alcja.zalupska@gmail.com</AdresEmail>
+    <Haslo>aaaaa</Haslo>
+  </Konto>
+  <Konto>
+    <AdresSerwera>kjnkjkj</AdresSerwera>
+    <Port>123</Port>
+    <ImieNazwisko>kjkjk</ImieNazwisko>
+    <AdresEmail>kkkkk@wp.pl</AdresEmail>
+    <Haslo>jnjnj</Haslo>
+  </Konto>
+  <Konto>
+    <AdresSerwera>dupa.pl</AdresSerwera>
+    <Port>123</Port>
+    <ImieNazwisko>Pe Be</ImieNazwisko>
+    <AdresEmail>pe@be.pl</AdresEmail>
+    <Haslo>11111</Haslo>
+  </Konto>
+</Konta>

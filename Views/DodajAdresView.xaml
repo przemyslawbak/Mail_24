@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Mail_24.Views.DodajAdresView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mail_24.Views"
+        mc:Ignorable="d">
+    <Grid  Background="#F2F2F2" FocusManager.FocusedElement="{Binding ElementName=skupienie}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="skupienie"
+            Style="{StaticResource tbStyle}" Grid.Column="0" Grid.Row="0"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Path=DodawanyAdres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="5"
+                 ToolTip="Wpisz nowy adres">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding DodawanieAdresu}" Key="Return" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Grid.Row="1"
+				Grid.Column="0"
+				Style="{StaticResource buttonStyle}"
+				ToolTip="Dodaj nowy adres"
+                HorizontalAlignment="Center"
+                Command="{Binding DodawanieAdresu}">
+            <TextBlock Text="Dodaj" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+    </Grid>
+</UserControl>
