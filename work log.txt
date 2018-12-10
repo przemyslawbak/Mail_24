@@ -1,0 +1,38 @@
+15.04 - start, projekt w photoshop
+16.04 - koniec projektu wygl¹du w photoshop, pocz¹tek kodowania widoku
+17.04 - zakodowany widok konta i main, znaleziony szablon na wysy³kê SMTP, M i VM
+18.04 - bindowanie przycisku "Dodaj", problemy...
+19.04 - 22.04 - ogarnienie Bare Metal MVVM z CodeProject
+https://www.codeproject.com/Articles/1163180/Bare-Metal-MVVM-Where-The-Code-Meets-The-Road-Part
+23.04 - uda³o mi siê w koñcu otworzyæ pierwsze okno jak nale¿y z MVVM
+24.04 - bindowanie kontrolek okna Konta, wykoñczenie funkcjonalnoœci
+25.04 - kodowanie widoku okna Adresy, kodowanie VM
+26.04 - Bindowanie przycisków Dodaj, Usuñ, Status, kodowanie komend VM
+27.04 - eksport adresów, wyszukiwanie
+28.04 - 29.04 - majówka *PRZERWA*
+30.04 - sortowanie Adresów, zaznacz wszystko
+01.05 - majówka *PRZERWA*
+02.05 - dodawanie za³¹cznika
+03.05 - model ustawienia, widok ustawienia
+04.05 - majówka *PRZERWA*
+05.05 - Metoda zapisu ustawieñ, bindowanie zapisu ustawieñ, pocz¹tek contextmenu dla za³¹czników
+06.05 - skoñczenie usuwania za³¹czników z contextmenu
+07.05 - EventTrigger z rozmiarami okna dla widoków, filry open/save dialogbox, isenabled kilku przycisków
+08.05 - powiadomienia przy zapisaniu i dodaniu konta, 
+nie udalo mi sie skonczyc aktywacji isenabled wszystkich przycisków (checkbox), 
+nie uda³o mi siê skoñczyæ zaznaczania checkbox w listbox dla itemów,
+zacz¹³em tworzenie klas dla treœci wiadomoœci i tematu
+09.05 - tworzenie i bindowanie modelu wiadomoœci, dalsza walka z checkboxami listy
+10.05 - wykorzystanie EventHandlera do aktywacji przycisków przy checkbox
+11.05 - projektowanie modelu i widoku wysy³ania, bindowanie statusu,
+dodanie w³asnoœci iloœci i limitów
+12.05-13.05 - weekend w trasie *PRZERWA*
+14.05 - algorytm przycisku Start, bindowanie statusów
+15.05 - znalezienie przyczyny buga przy zapisie, bindowanie przycisku Stop,
+przycisk Reset w limitach, wpisanie adresu
+16.05 - czêœciowe usuniêcie bugów dodania adresu, sortowania, 
+czyszczenie textboxów po dodaniu konta, focusowanie w oknach
+17.05 - walidacja textboxów, passwordbox i password helper,
+usuniêcie bugów filtrowania po dodaniu adresu i sortowaniu
+18.05 - poprawienie walidacji, dodanie tooltipów
+21.05 - usuniêcie buga int/double
