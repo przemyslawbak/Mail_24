@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -298,10 +299,21 @@ namespace Mail_24.ViewModels
                         {
                             TerazWysylanyAdres = Adres.ListaAdresow[adresyLicznik].AdresMailowy;
                             OnPropertyChanged("TerazWysylanyAdres");
-                            TerazWysylaneKonto = Konta.ListaKont[kontaLicznik].AdresEmail;
+                            TerazWysylaneKonto = Konta.ListaKont[kontaLicznik].AdresEmail; //email konta
+                            string TerazWysylaneHaslo = Konta.ListaKont[kontaLicznik].Haslo; //haslo konta
+                            string TerazWysylanySerwer = Konta.ListaKont[kontaLicznik].AdresSerwera; //smtp adres
+                            string TerazWysylaneNazwisko = Konta.ListaKont[kontaLicznik].ImieNazwisko; //nazwisko konta
+                            int TerazWysylanyPort = int.Parse(Konta.ListaKont[kontaLicznik].Port);
                             OnPropertyChanged("TerazWysylaneKonto");
-                            //openDialog.ShowPowiadomienie(Adres.ListaAdresow[adresyLicznik].AdresMailowy + " " + Konta.ListaKont[kontaLicznik].AdresEmail, "Powiadomienie"); //tutaj metoda wysyłania wiadomości
-                            openDialog.ShowPowiadomienie(taskDelayValue.ToString(), "Powiadomienie");
+                            //tutaj metoda wysyłania wiadomości
+                            WyslijWiadomosc(TerazWysylanyAdres,
+                                TerazWysylaneKonto,
+                                TerazWysylaneNazwisko,
+                                wiadomoscModel.TematWiadomosc,
+                                wiadomoscModel.TrescWiadomosci,
+                                TerazWysylaneHaslo,
+                                TerazWysylanySerwer,
+                                TerazWysylanyPort);
                             Adres.ListaAdresow[adresyLicznik].AktywnyEmail = false;
                             kontaLicznik++;
                             adresy.ZapiszAdresy();
@@ -336,6 +348,39 @@ namespace Mail_24.ViewModels
                 if (string.IsNullOrWhiteSpace(TematWiadomosc) || string.IsNullOrWhiteSpace(TrescWiadomosc))
                     openDialog.ShowPowiadomienie("Nie można rozpocząć wysyłania, brak tematu lub treści wiadomości", "Powiadomienie");
 
+            }
+            void WyslijWiadomosc(string to, string from, string name, string subject, string body, string pass, string smtp, int port) //wysyla wiadomosc
+            {
+                //dane wiadomosci
+                MailMessage msg = new MailMessage();
+                msg.To.Add(to);//Mail recipient account
+                msg.From = new MailAddress(from, name, System.Text.Encoding.UTF8);//Mail account and displays the name and the character encoding
+                msg.Subject = subject;//Message header
+                msg.SubjectEncoding = System.Text.Encoding.UTF8;//Mail title code
+                msg.Body = body;//The message content
+                msg.BodyEncoding = System.Text.Encoding.UTF8;//Message encoding
+                msg.IsBodyHtml = false;//Whether the HTML mail
+                msg.Priority = MailPriority.Normal;//Priority mail
+                if (ListaZalacznikow.Count > 0)
+                {
+                    foreach (var item in ListaZalacznikow)
+                    {
+                        msg.Attachments.Add(new Attachment(item.AdresPliku + item.NazwaZalacznika));
+                    }
+                }
+                //dane konta
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new System.Net.NetworkCredential(from, pass);//The registered email address and password, the QQ mailbox, if you set a password to use independent, independent password instead of the password
+                client.Host = smtp;//QQ mailbox corresponding to the SMTP server
+                client.Port = port;
+                object userState = msg;
+                try
+                {
+                    client.SendAsync(msg, userState);
+                }
+                catch (Exception ex)
+                {
+                }
             }
         }
 
