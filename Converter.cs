@@ -19,9 +19,10 @@ namespace Mail_24
             string imieNazwisko = (string)values[2];
             string adresEmail = (string)values[3];
             string haslo = (string)values[4];
-
-            if ((new[] { adresSerwera, port, imieNazwisko, adresEmail, haslo }).All(c => !string.IsNullOrWhiteSpace(c))
-            && (new[] { "@", "." }).Contains(adresEmail) && regex.IsMatch(port))
+            //validation
+            if (!string.IsNullOrWhiteSpace(adresSerwera) && !string.IsNullOrWhiteSpace(port)
+                && !string.IsNullOrWhiteSpace(imieNazwisko) && !string.IsNullOrWhiteSpace(adresEmail)
+                && !string.IsNullOrWhiteSpace(haslo) && (adresEmail).Contains('@') && (adresEmail).Contains('.') && regex.IsMatch(port))
             {
                 return new ViewModels.KontoViewModel(adresSerwera, port, imieNazwisko, adresEmail, haslo);
             }

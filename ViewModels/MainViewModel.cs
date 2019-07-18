@@ -279,7 +279,7 @@ namespace Mail_24.ViewModels
                         Limity.limity.IloscDobowa = 0;
                         limity.Zapisz();
                     }
-                    if (Limity.limity.IloscGodzinowa == int.Parse(Limity.limity.PerHour) || Limity.limity.IloscDobowa == int.Parse(Limity.limity.PerDay)) //jeśli mamy limit godzinowy lub dniowy
+                    if (Limity.limity.IloscGodzinowa > int.Parse(Limity.limity.PerHour) || Limity.limity.IloscDobowa > int.Parse(Limity.limity.PerDay)) //jeśli mamy limit godzinowy lub dniowy
                     {
                         Status = Models.StatusWysylania.Oczekiwanie;
                         OnPropertyChanged("Status");
@@ -321,7 +321,7 @@ namespace Mail_24.ViewModels
                         }
                         adresyLicznik++;
                     }
-                    if (kontaLicznik == Konta.ListaKont.Count) //jeśli dojdziemy do końca listy kont
+                    if (kontaLicznik >= Konta.ListaKont.Count) //jeśli dojdziemy do końca listy kont
                     {
                         kontaLicznik = 0;
                         Limity.limity.IloscGodzinowa++;
@@ -365,7 +365,7 @@ namespace Mail_24.ViewModels
                 {
                     foreach (var item in ListaZalacznikow)
                     {
-                        msg.Attachments.Add(new Attachment(item.AdresPliku + item.NazwaZalacznika));
+                        msg.Attachments.Add(new Attachment(item.AdresPliku));
                     }
                 }
                 //dane konta

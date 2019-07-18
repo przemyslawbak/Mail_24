@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mail_24.Views"
         mc:Ignorable="d">
-    <Grid  Background="#F2F2F2" FocusManager.FocusedElement="{Binding ElementName=skupienie}">
+    <Grid Background="#F2F2F2" FocusManager.FocusedElement="{Binding ElementName=skupienie}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition/>

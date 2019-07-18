@@ -65,7 +65,6 @@ namespace Mail_24.Models
                                            new XElement("ZaznaczenieEmail", false),
                                            new XElement("WyswietlenieEmail", true)))); //domyślnie zapisuje prawdę
                 xml.Save(filePath);
-
             }
             catch (Exception exc)
             {
