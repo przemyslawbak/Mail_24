@@ -1,6 +1,6 @@
 ## Purpose
 
-Desktop application created for automated sending of email template messages from numbers of mail accounts to contacts imported from a text file.
+Desktop application created for automated sending of email template messages from numbers of mail accounts to contact list imported from a text file.
 
 ## Features
 
