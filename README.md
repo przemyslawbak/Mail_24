@@ -1,3 +1,5 @@
+# Mail_24
+
 ## Purpose
 
 Desktop application created for automated sending of email template messages from numbers of mail accounts to contact list imported from a text file.
@@ -23,3 +25,7 @@ Desktop application created for automated sending of email template messages fro
   
 2. Application is using:
   - C#, WPF.
+
+## Production
+
+21 May 2018
