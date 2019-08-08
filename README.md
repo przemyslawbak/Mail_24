@@ -15,7 +15,7 @@ Desktop application created for automated sending of email template messages fro
 ## Technology
 
 1. Approaches:
-  - simplified MVVM,
+  - MVVM,
   - active filtering list with CollectionViewSource,
   - event handlers,
   - view converter,
