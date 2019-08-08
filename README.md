@@ -22,4 +22,4 @@ Desktop application created for automated sending of email template messages fro
   - simple dialog manager.
   
 2. Application is using:
-  - C#, WPF
+  - C#, WPF.
